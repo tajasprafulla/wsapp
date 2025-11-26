@@ -7,12 +7,26 @@ import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
 import io.ktor.serialization.gson.*
-import java.time.Duration
-import java.util.Collections
-import java.util.UUID
+import io.ktor.server.engine.*
+import io.ktor.server.netty.*
 import io.ktor.websocket.*
 import kotlinx.coroutines.launch
+import java.time.Duration
+import java.util.*
 
+// ----------------------------
+// 1. This is the main() method JVM looks for
+// ----------------------------
+fun main() {
+    val port = System.getenv("PORT")?.toInt() ?: 8080
+    embeddedServer(Netty, port = port, host = "0.0.0.0") {
+        module()
+    }.start(wait = true)
+}
+
+// ----------------------------
+// 2. Your existing Ktor module
+// ----------------------------
 fun Application.module() {
 
     install(DefaultHeaders)
