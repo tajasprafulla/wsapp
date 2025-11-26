@@ -1,0 +1,52 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.9.22'
+    id 'application'
+	id 'com.github.johnrengelman.shadow' version "8.1.1"
+}
+
+group = 'homedoor'
+version = '0.0.1'
+
+application {
+    //mainClass = "io.ktor.server.netty.EngineMain"
+	 mainClass.set("me.amryousef.ApplicationKt")
+}
+
+repositories {
+    mavenCentral()
+}
+
+def ktor_version = "2.3.7"
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+    // Ktor server
+    implementation "io.ktor:ktor-server-core-jvm:$ktor_version"
+    implementation "io.ktor:ktor-server-netty-jvm:$ktor_version"
+    implementation "io.ktor:ktor-server-websockets-jvm:$ktor_version"
+    implementation "io.ktor:ktor-server-call-logging-jvm:$ktor_version"
+    implementation "io.ktor:ktor-server-default-headers-jvm:$ktor_version"
+	
+	
+
+
+    // JSON
+    implementation "io.ktor:ktor-serialization-gson-jvm:$ktor_version"
+    implementation "io.ktor:ktor-server-content-negotiation-jvm:$ktor_version"
+
+    // Logging
+    implementation "ch.qos.logback:logback-classic:1.4.11"
+
+    testImplementation "io.ktor:ktor-server-tests-jvm:$ktor_version"
+
+    // Optional: coroutines for async handling
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
+}
+
+sourceSets {
+    main {
+        java.srcDirs = ['src/main/kotlin']
+        resources.srcDirs = ['src/main/resources']
+    }
+}
